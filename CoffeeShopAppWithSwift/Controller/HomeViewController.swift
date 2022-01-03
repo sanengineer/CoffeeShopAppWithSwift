@@ -9,6 +9,26 @@ import AsyncDisplayKit
 
 class HomeViewController: ASDKViewController<ASDisplayNode> {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationItem.largeTitleDisplayMode = .always
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.topItem?.title = "But First Coffee Gram"
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.prefersLargeTitles = true
+            self.navigationItem.largeTitleDisplayMode = .always
+        }
+        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 200.0)
+    
+    }
+
+    
 //    private let homeNode: ASDisplayNode = {
 //       let homeNode = ASDisplayNode()
 //        homeNode.backgroundColor = .purple
@@ -22,7 +42,7 @@ class HomeViewController: ASDKViewController<ASDisplayNode> {
         homeNode.backgroundColor = .purple
         homeNode.automaticallyManagesSubnodes = true
         homeNode.automaticallyManagesContentSize = true
-        
+
         return homeNode
     }()
     
@@ -45,24 +65,20 @@ class HomeViewController: ASDKViewController<ASDisplayNode> {
     
     override init() {
         super.init(node: homeNode)
-        
+//        homeNode.scrollIndicatorInsets.top = -200
         homeNode.layoutSpecBlock = { node, constrainedSize -> ASLayoutSpec in
             return ASStackLayoutSpec(direction: .horizontal, spacing: 8, justifyContent: .start, alignItems: .start, children: [
                 self.redNode,
                 self.blueNode
             ])
         }
+
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        self.navigationController?.navigationBar.topItem?.title = "Ha"
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-        }
-    }
+    
 
 }
